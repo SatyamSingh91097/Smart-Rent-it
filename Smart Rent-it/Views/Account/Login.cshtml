@@ -1,0 +1,28 @@
+﻿@model LoginViewModel
+@{
+    ViewData["Title"] = "Login";
+}
+
+<div class="row justify-content-center mt-5">
+    @* bg-white ki jagah bg-body-tertiary use kiya hai jo dark mode mein dark gray ho jayega *@
+    <div class="col-md-4 shadow p-4 rounded bg-body-tertiary border">
+        <h3 class="text-center mb-4 text-body">Login to Smart Rent-it</h3>
+        
+        @if (ViewBag.Error != null)
+        {
+            <div class="alert alert-danger">@ViewBag.Error</div>
+        }
+
+        <form asp-action="Login" method="post">
+            <div class="mb-3">
+                <label class="form-label text-body">Email Address</label>
+                <input asp-for="Email" class="form-control bg-body text-body" placeholder="admin@test.com" required />
+            </div>
+            <div class="mb-3">
+                <label class="form-label text-body">Password</label>
+                <input asp-for="Password" type="password" class="form-control bg-body text-body" placeholder="123" required />
+            </div>
+            <button type="submit" class="btn btn-primary w-100 shadow-sm">Login Now</button>
+        </form>
+    </div>
+</div>

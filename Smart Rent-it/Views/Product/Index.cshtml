@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Product>
+
+<h2 class="text-center mb-4">Available Items for Rent</h2>
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                <img src="@item.ImageUrl" class="card-img-top" alt="@item.Name">
+                <div class="card-body">
+                    <h5 class="card-title">@item.Name</h5>
+                    <p class="card-text text-truncate">@item.Description</p>
+                    <p class="fw-bold text-primary">₹@item.PricePerDay / day</p>
+                    
+                    @if (item.IsAvailable)
+                    {
+                        <span class="badge bg-success mb-2">Available</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-danger mb-2">Rented Out</span>
+                    }
+
+                    <div class="d-grid mt-2">
+                        @* ASP Tag Helper used here *@
+@*                         <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-dark">View Details</a>
+ *@      <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-primary w-100">View Details</a>              </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

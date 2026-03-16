@@ -1,0 +1,46 @@
+﻿@{
+    ViewData["Title"] = "How It Works";
+}
+
+<div class="container py-5">
+    <div class="text-center mb-5">
+        <h1 class="display-4 fw-bold">How <span class="text-primary">Smart Rent-it</span> Works</h1>
+        <p class="lead text-muted">A simple way to share and rent items within your community.</p>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm p-4 text-center">
+                <div class="display-1 mb-3">🔍</div>
+                <h3 class="fw-semibold">1. Find an Item</h3>
+                <p class="text-muted">Browse through our curated list of items. From cameras to camping gear, find exactly what you need for your next adventure.</p>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm p-4 text-center">
+                <div class="display-1 mb-3">🤝</div>
+                <h3 class="fw-semibold">2. Connect & Rent</h3>
+                <h3 class="fw-semibold"></h3>
+                <p class="text-muted">Log in to your account, check availability, and book the item. It's as easy as ordering a pizza, but way more useful!</p>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm p-4 text-center">
+                <div class="display-1 mb-3">♻️</div>
+                <h3 class="fw-semibold">3. Use & Return</h3>
+                <p class="text-muted">Pick up the item, get your work done, and return it safely. You save money, and the owner earns a little extra!</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-5 p-5 bg-primary text-white rounded-4 text-center shadow">
+        <h2 class="fw-bold">Ready to start sharing?</h2>
+        <p class="mb-4">Join hundreds of people making the most of their unused items.</p>
+        <div class="d-flex justify-content-center gap-3">
+            <a asp-controller="Product" asp-action="Index" class="btn btn-light btn-lg px-4 fw-bold">Browse Items</a>
+            <a asp-controller ="Rent" asp-action="Create" class="btn btn-outline-light btn-lg px-4">List an Item</a>
+        </div>
+    </div>
+</div>

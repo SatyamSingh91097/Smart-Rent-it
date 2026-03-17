@@ -7,7 +7,7 @@
     <div class="col-md-6 shadow p-4 rounded bg-body-tertiary border">
         <h2 class="mb-4 text-body border-bottom pb-2">List Your Item for Rent</h2>
         
-        <form asp-action="Create" method="post">
+        <form asp-action="Create" method="post" enctype="multipart/form-data">
             <div class="mb-3">
                 <label asp-for="Name" class="form-label text-body">Item Name</label>
                 <input asp-for="Name" class="form-control bg-body text-body" required />
@@ -16,6 +16,12 @@
             <div class="mb-3">
                 <label asp-for="Description" class="form-label text-body">Description</label>
                 <textarea asp-for="Description" class="form-control bg-body text-body" rows="3" required></textarea>
+            </div>
+
+            @* Naya Image Upload Field *@
+            <div class="mb-3">
+                <label class="form-label text-body">Upload Item Image</label>
+                <input type="file" name="ImageFile" class="form-control bg-body text-body" accept="image/*" required />
             </div>
             
             <div class="row">

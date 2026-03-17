@@ -1,4 +1,4 @@
-namespace Smart_Rent_it.Models
+namespace Smart_Rent_it.ViewModels
 {
     public class ErrorViewModel
     {

@@ -87,10 +87,10 @@
                             </ul>
                         </li>
 
-                        @if (!string.IsNullOrEmpty(Context.Session.GetString("UserEmail")))
+                        @if (!string.IsNullOrEmpty(Context.Session.GetString("FullName")))
                         {
                             <li class="nav-item me-3">
-                                <span class="text-muted small">Hi, <strong>@Context.Session.GetString("UserEmail")</strong></span>
+                                <span class="text-muted small">Hi, <strong>@Context.Session.GetString("FullName")</strong></span>
                             </li>
                             <li class="nav-item me-3">
                                 <a class="btn btn-outline-danger btn-sm rounded-pill px-3" asp-controller="Account" asp-action="Logout">Logout</a>

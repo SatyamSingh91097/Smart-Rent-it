@@ -6,6 +6,7 @@ using System.Linq;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using System;
+using System.Threading.Tasks;
 
 namespace Smart_Rent_it.Controllers
 {
@@ -29,7 +30,6 @@ namespace Smart_Rent_it.Controllers
             }
 
             var userRole = HttpContext.Session.GetString("UserRole");
-
             if (userRole == "Admin" || userRole == "User")
             {
                 return View();
@@ -39,15 +39,15 @@ namespace Smart_Rent_it.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(Product newProduct, IFormFile ImageFile)
+        public async Task<IActionResult> Create(Product newProduct, IFormFile ImageFile)
         {
             ModelState.Remove("ImageUrl");
+
             if (ModelState.IsValid)
             {
                 if (ImageFile != null && ImageFile.Length > 0)
                 {
                     string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "images");
-
                     if (!Directory.Exists(uploadsFolder))
                     {
                         Directory.CreateDirectory(uploadsFolder);
@@ -58,7 +58,7 @@ namespace Smart_Rent_it.Controllers
 
                     using (var fileStream = new FileStream(filePath, FileMode.Create))
                     {
-                        ImageFile.CopyTo(fileStream);
+                        await ImageFile.CopyToAsync(fileStream);
                     }
 
                     newProduct.ImageUrl = "/images/" + uniqueFileName;
@@ -69,8 +69,9 @@ namespace Smart_Rent_it.Controllers
                 }
 
                 _context.Products.Add(newProduct);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
 
+                TempData["Message"] = "Item listed successfully!";
                 return RedirectToAction("Index", "Product");
             }
 
@@ -85,7 +86,6 @@ namespace Smart_Rent_it.Controllers
             }
 
             var product = _context.Products.FirstOrDefault(p => p.Id == id);
-
             if (product == null)
             {
                 return NotFound();
@@ -93,5 +93,6 @@ namespace Smart_Rent_it.Controllers
 
             return View(product);
         }
+
     }
 }

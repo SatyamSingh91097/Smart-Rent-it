@@ -1,5 +1,4 @@
 ﻿<!DOCTYPE html>
-@* Bootstrap 5.3+ supports data-bs-theme for easy dark mode toggle *@
 <html lang="en" data-bs-theme="light">
 <head>
     <meta charset="utf-8" />
@@ -9,103 +8,210 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Smart_Rent_it.styles.css" asp-append-version="true" />
 
     <style>
+        :root {
+            /* Branding Gradients */
+            --primary-grad: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            /* Soft Background Gradient - Blue-ish tint for premium look */
+            --soft-bg-grad: linear-gradient(180deg, #f8faff 0%, #ffffff 100%);
+            --nav-bg: rgba(255, 255, 255, 0.85);
+            --card-shadow: 0 10px 30px rgba(0,0,0,0.04);
+        }
+
         body {
-            font-family: 'Poppins', sans-serif;
-            transition: background-color 0.3s ease;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--soft-bg-grad);
+            background-attachment: fixed;
+            color: #1a1a1a;
+            min-height: 100vh;
+            transition: all 0.3s ease;
         }
+
+        /* Floating Glass Navbar */
         .navbar {
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            background: var(--nav-bg);
+            border-bottom: 1px solid rgba(118, 75, 162, 0.08) !important;
+            padding: 12px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1050;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.02);
         }
+
         .navbar-brand {
+            font-weight: 800;
+            font-size: 1.6rem;
+            background: var(--primary-grad);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -1px;
+        }
+
+        .nav-link {
             font-weight: 600;
-            color: #0d6efd !important;
-            letter-spacing: 1px;
+            color: #4a5568 !important;
+            transition: 0.3s;
+            padding: 8px 18px !important;
+            border-radius: 12px;
+            margin: 0 2px;
         }
-        .nav-link:hover {
-            color: #0d6efd !important;
+
+        .nav-link:hover, .nav-link.active {
+            color: #764ba2 !important;
+            background: rgba(118, 75, 162, 0.06);
         }
-        /* Mode based footer background */
-        [data-bs-theme="light"] .footer { background-color: #ffffff; }
-        [data-bs-theme="dark"] .footer { background-color: #212529; }
+
+        /* Modern User Profile Pill */
+        .profile-pill {
+            display: flex;
+            align-items: center;
+            background: #ffffff;
+            padding: 6px 16px 6px 6px;
+            border-radius: 50px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border: 1px solid #edf2f7;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none !important;
+        }
+
+        .profile-pill:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(118, 75, 162, 0.12);
+            border-color: #cbd5e0;
+        }
+
+        .profile-circle {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #fff;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        .user-name-text {
+            font-size: 0.88rem;
+            font-weight: 700;
+            color: #2d3748;
+        }
+
+        /* + List Item Button */
+        .btn-list-now {
+            background: var(--primary-grad);
+            color: white !important;
+            border: none;
+            padding: 12px 24px !important;
+            border-radius: 14px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            box-shadow: 0 6px 18px rgba(102, 126, 234, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .btn-list-now:hover {
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.45);
+            filter: brightness(1.1);
+        }
+
+        /* Dynamic Title Styling */
+        main h1, main h2 {
+            font-weight: 800;
+            background: var(--primary-grad);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Dark Mode Updates */
+        [data-bs-theme="dark"] {
+            --soft-bg-grad: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
+            --nav-bg: rgba(15, 23, 42, 0.9);
+        }
         
+        [data-bs-theme="dark"] body { background: var(--soft-bg-grad); }
+        [data-bs-theme="dark"] .profile-pill { background: #1e293b; border-color: #334155; }
+        [data-bs-theme="dark"] .user-name-text { color: #f1f5f9; }
+
         .footer {
-            padding: 20px 0;
-            margin-top: 40px;
+            background: transparent;
+            padding: 50px 0;
+            margin-top: 100px;
+            border-top: 1px solid rgba(0,0,0,0.05);
         }
     </style>
 </head>
 <body>
     <header>
-        @* Navbar uses bg-body-tertiary for better dark mode support *@
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm border-bottom mb-4 bg-body-tertiary">
+        <nav class="navbar navbar-expand-lg">
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-controller="Product" asp-action="Index">
                     🚀 Smart Rent-it
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+                
+                <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
+                    <ul class="navbar-nav me-auto">
                         <li class="nav-item">
-                            <a class="nav-link fw-medium" asp-controller="Product" asp-action="Index">Browse Items</a>
+                            <a class="nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Product" ? "active" : "")"
+                               asp-controller="Product" asp-action="Index">Browse Items</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link fw-medium" asp-controller="Home" asp-action="Privacy">How it Works</a>
+                            <a class="nav-link @(ViewContext.RouteData.Values["Action"]?.ToString() == "Privacy" ? "active" : "")"
+                               asp-controller="Home" asp-action="Privacy">How it Works</a>
                         </li>
                     </ul>
                     
-                    <ul class="navbar-nav align-items-center">
-                        <li class="nav-item dropdown me-3">
-                            <button class="btn btn-link nav-link py-2 px-0 px-lg-2 dropdown-toggle d-flex align-items-center"
-                                    id="bd-theme" type="button" aria-expanded="false" data-bs-toggle="dropdown" data-bs-display="static">
+                    <ul class="navbar-nav align-items-center gap-3">
+                        @* Theme Switcher *@
+                        <li class="nav-item dropdown">
+                            <button class="btn btn-link nav-link py-2 px-0 dropdown-toggle d-flex align-items-center border-0 shadow-none"
+                                    id="bd-theme" type="button" data-bs-toggle="dropdown">
                                 <span class="theme-icon-active">🌓</span>
                             </button>
-                            <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="bd-theme">
-                                <li>
-                                    <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="light">
-                                        ☀️ Light
-                                    </button>
-                                </li>
-                                <li>
-                                    <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="dark">
-                                        🌙 Dark
-                                    </button>
-                                </li>
-                                <li>
-                                    <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="auto">
-                                        💻 System
-                                    </button>
-                                </li>
+                            <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0 rounded-4 mt-2" aria-labelledby="bd-theme">
+                                <li><button type="button" class="dropdown-item py-2" data-bs-theme-value="light">☀️ Light</button></li>
+                                <li><button type="button" class="dropdown-item py-2" data-bs-theme-value="dark">🌙 Dark</button></li>
                             </ul>
                         </li>
 
                         @if (!string.IsNullOrEmpty(Context.Session.GetString("FullName")))
                         {
-                            <li class="nav-item me-3">
-                                <span class="text-muted small">Hi, <strong>@Context.Session.GetString("FullName")</strong></span>
+                            <li class="nav-item">
+                                <a asp-controller="Account" asp-action="Profile" class="profile-pill">
+                                    @{
+                                        var imgUrl = Context.Session.GetString("UserProfilePic");
+                                        var finalImg = !string.IsNullOrEmpty(imgUrl) ? imgUrl : "/images/default-user.png";
+                                    }
+                                    <img src="@finalImg" class="profile-circle me-2" alt="Avatar" onerror="this.src='/images/default-user.png';" />
+                                    <span class="user-name-text d-none d-md-inline">@Context.Session.GetString("FullName")</span>
+                                </a>
                             </li>
-                            <li class="nav-item me-3">
-                                <a class="btn btn-outline-danger btn-sm rounded-pill px-3" asp-controller="Account" asp-action="Logout">Logout</a>
+
+                            <li class="nav-item">
+                                <a class="nav-link text-danger small fw-bold" asp-controller="Account" asp-action="Logout">Logout</a>
                             </li>
                         }
                         else
                         {
-                            <li class="nav-item me-3">
-                                <a class="nav-link fw-medium" asp-controller="Account" asp-action="Login">Login</a>
+                            <li class="nav-item">
+                                <a class="nav-link fw-bold" asp-controller="Account" asp-action="Login">Login</a>
                             </li>
                         }
 
                         <li class="nav-item">
-                            <a class="btn btn-primary btn-sm rounded-pill px-4" asp-controller="Rent" asp-action="Create">
-                                List Your Item
+                            <a class="btn btn-list-now ms-lg-2" asp-controller="Rent" asp-action="Create">
+                                + List Item
                             </a>
                         </li>
                     </ul>
@@ -114,12 +220,19 @@
         </nav>
     </header>
 
-    <div class="container">
+    <div class="container pt-5">
         @if (TempData["Message"] != null)
         {
-            <div class="alert alert-success alert-dismissible fade show mb-4 border-0 shadow-sm" role="alert">
-                <i class="bi bi-check-circle-fill me-2"></i> @TempData["Message"]
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            <div class="alert custom-alert alert-dismissible fade show mb-5" role="alert" 
+                 style="border:none; border-radius:20px; box-shadow: 0 15px 35px rgba(0,0,0,0.06); border-left: 6px solid #2ecc71;">
+                <div class="d-flex align-items-center py-1">
+                    <span class="me-3 fs-3">✅</span>
+                    <div>
+                        <strong class="d-block text-dark">Success!</strong>
+                        <span class="text-muted">@TempData["Message"]</span>
+                    </div>
+                </div>
+                <button type="button" class="btn-close shadow-none" data-bs-dismiss="alert"></button>
             </div>
         }
 
@@ -128,16 +241,17 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted shadow-sm">
+    <footer class="footer text-muted">
         <div class="container text-center">
-            <div class="row">
+            <hr class="mb-5 opacity-10">
+            <div class="row align-items-center">
                 <div class="col-md-6 text-md-start">
-                    &copy; 2026 - <strong>Smart Rent-it</strong> | Peer-to-Peer Sharing
+                    <span class="fw-bold text-dark" style="letter-spacing: -0.5px;">🚀 Smart Rent-it</span> 
+                    <span class="ms-2">&copy; 2026</span>
                 </div>
-                <div class="col-md-6 text-md-end">
-                    <a asp-controller="Home" asp-action="Privacy" class="text-decoration-none text-muted mx-2">Privacy</a>
-                    <a href="#" class="text-decoration-none text-muted mx-2">Terms</a>
-                    <a href="#" class="text-decoration-none text-muted mx-2">Support</a>
+                <div class="col-md-6 text-md-end mt-3 mt-md-0">
+                    <a asp-controller="Home" asp-action="Privacy" class="text-decoration-none text-muted mx-3 small fw-500">Privacy Policy</a>
+                    <a href="#" class="text-decoration-none text-muted mx-3 small fw-500">Terms of Service</a>
                 </div>
             </div>
         </div>
@@ -146,8 +260,6 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-    
-    @* Separated JavaScript file for better maintainability *@
     <script src="~/js/AppJS/theme-toggle.js" asp-append-version="true"></script>
 
     @await RenderSectionAsync("Scripts", required: false)

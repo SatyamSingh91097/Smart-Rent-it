@@ -2,45 +2,226 @@
     ViewData["Title"] = "How It Works";
 }
 
-<div class="container py-5">
-    <div class="text-center mb-5">
-        <h1 class="display-4 fw-bold">How <span class="text-primary">Smart Rent-it</span> Works</h1>
-        <p class="lead text-muted">A simple way to share and rent items within your community.</p>
-    </div>
+<style>
+    .how-it-works-section {
+        padding: 80px 0;
+        background: linear-gradient(180deg, rgba(102, 126, 234, 0.05) 0%, rgba(255, 255, 255, 1) 100%);
+    }
 
-    <div class="row g-4">
-        <div class="col-md-4">
-            <div class="card h-100 border-0 shadow-sm p-4 text-center">
-                <div class="display-1 mb-3">🔍</div>
-                <h3 class="fw-semibold">1. Find an Item</h3>
-                <p class="text-muted">Browse through our curated list of items. From cameras to camping gear, find exactly what you need for your next adventure.</p>
+    .main-title {
+        font-weight: 800;
+        font-size: 3.5rem;
+        letter-spacing: -1.5px;
+        color: #1e293b;
+    }
+
+    /* ✅ FIXED TEXT (NO TRANSPARENCY ISSUE) */
+    .gradient-text {
+        color: #4f46e5;
+        font-weight: 800;
+    }
+
+    [data-bs-theme="dark"] .gradient-text {
+        color: #a5b4fc;
+    }
+
+    /* Step Cards */
+    .step-card {
+        border: none;
+        border-radius: 30px;
+        background: #ffffff;
+        padding: 40px;
+        box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+        transition: all 0.4s ease;
+        position: relative;
+        z-index: 1;
+        overflow: hidden;
+    }
+
+    [data-bs-theme="dark"] .step-card {
+        background: #1e293b;
+        box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    }
+
+    .step-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 25px 50px rgba(102, 126, 234, 0.15);
+    }
+
+    /* ✅ DARKER STEP NUMBER */
+    .step-number {
+        position: absolute;
+        top: -10px;
+        right: 10px;
+        font-size: 8rem;
+        font-weight: 900;
+        color: rgba(102, 126, 234, 0.25); /* increased visibility */
+        z-index: 0;
+        pointer-events: none;
+    }
+
+    /* ✅ DARKER ICON BACKGROUND */
+    .icon-box {
+        width: 80px;
+        height: 80px;
+        background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2));
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2.5rem;
+        margin-bottom: 25px;
+    }
+
+    /* TEXT COLORS */
+    p, h1, h2, h3 {
+        color: #1e293b;
+    }
+
+    .text-muted {
+        color: #6b7280 !important;
+    }
+
+    /* DARK MODE TEXT */
+    [data-bs-theme="dark"] p,
+    [data-bs-theme="dark"] h1,
+    [data-bs-theme="dark"] h2,
+    [data-bs-theme="dark"] h3 {
+        color: #e2e8f0;
+    }
+
+    [data-bs-theme="dark"] .text-muted {
+        color: #94a3b8 !important;
+    }
+
+    /* CTA */
+    .cta-banner {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border-radius: 40px;
+        padding: 60px;
+        position: relative;
+        overflow: hidden;
+        margin-top: 80px;
+    }
+
+    /* ✅ DARKER CTA CIRCLE */
+    .cta-banner::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -20%;
+        width: 300px;
+        height: 300px;
+        background: rgba(255,255,255,0.2);
+        border-radius: 50%;
+    }
+
+    .btn-cta-light {
+        background: #ffffff;
+        color: #667eea;
+        border: none;
+        padding: 15px 35px;
+        border-radius: 15px;
+        font-weight: 700;
+        transition: 0.3s;
+    }
+
+    .btn-cta-light:hover {
+        transform: scale(1.05);
+        background: #f8fafc;
+        color: #764ba2;
+    }
+
+    .fade-in-up {
+        animation: fadeInUp 0.8s ease-out;
+    }
+
+    @@keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(30px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+</style>
+
+<div class="how-it-works-section">
+    <div class="container">
+
+        <div class="text-center mb-5 fade-in-up">
+            <h1 class="main-title mb-3">
+                How <span class="gradient-text">Smart Rent-it</span> Works
+            </h1>
+
+            <p class="lead text-muted mx-auto" style="max-width: 600px;">
+                Connecting people to share resources, save money, and build a sustainable community.
+            </p>
+        </div>
+
+        <div class="row g-5 mt-2">
+
+            <div class="col-lg-4 col-md-6 fade-in-up" style="animation-delay: 0.1s;">
+                <div class="card step-card h-100">
+                    <div class="step-number">01</div>
+                    <div class="icon-box">🔍</div>
+                    <h3 class="fw-bold mb-3">Discover Items</h3>
+                    <p class="text-muted">
+                        Explore a wide range of categories. From high-end cameras to professional tools,
+                        find exactly what you need near you.
+                    </p>
+                </div>
             </div>
-        </div>
 
-        <div class="col-md-4">
-            <div class="card h-100 border-0 shadow-sm p-4 text-center">
-                <div class="display-1 mb-3">🤝</div>
-                <h3 class="fw-semibold">2. Connect & Rent</h3>
-                <h3 class="fw-semibold"></h3>
-                <p class="text-muted">Log in to your account, check availability, and book the item. It's as easy as ordering a pizza, but way more useful!</p>
+            <div class="col-lg-4 col-md-6 fade-in-up" style="animation-delay: 0.2s;">
+                <div class="card step-card h-100">
+                    <div class="step-number">02</div>
+                    <div class="icon-box">📅</div>
+                    <h3 class="fw-bold mb-3">Book Instantly</h3>
+                    <p class="text-muted">
+                        Check real-time availability, select your dates, and secure your rental with a single click.
+                        Fast, secure, and transparent.
+                    </p>
+                </div>
             </div>
-        </div>
 
-        <div class="col-md-4">
-            <div class="card h-100 border-0 shadow-sm p-4 text-center">
-                <div class="display-1 mb-3">♻️</div>
-                <h3 class="fw-semibold">3. Use & Return</h3>
-                <p class="text-muted">Pick up the item, get your work done, and return it safely. You save money, and the owner earns a little extra!</p>
+            <div class="col-lg-4 col-md-6 fade-in-up" style="animation-delay: 0.3s;">
+                <div class="card step-card h-100">
+                    <div class="step-number">03</div>
+                    <div class="icon-box">♻️</div>
+                    <h3 class="fw-bold mb-3">Use & Return</h3>
+                    <p class="text-muted">
+                        Pick up the item, complete your task, and return it.
+                        Save money by renting and earn money by listing your own items.
+                    </p>
+                </div>
             </div>
-        </div>
-    </div>
 
-    <div class="mt-5 p-5 bg-primary text-white rounded-4 text-center shadow">
-        <h2 class="fw-bold">Ready to start sharing?</h2>
-        <p class="mb-4">Join hundreds of people making the most of their unused items.</p>
-        <div class="d-flex justify-content-center gap-3">
-            <a asp-controller="Product" asp-action="Index" class="btn btn-light btn-lg px-4 fw-bold">Browse Items</a>
-            <a asp-controller ="Rent" asp-action="Create" class="btn btn-outline-light btn-lg px-4">List an Item</a>
         </div>
+
+        <div class="cta-banner text-center text-white shadow-lg fade-in-up">
+
+            @* <h2 class="display-5 fw-bold mb-3 text-white">
+                Ready to join the revolution?
+            </h2> *@
+
+            <p class="lead mb-4 opacity-75">
+                    Ready to join the revolution?
+                Start making the most of your unused items or find what you need today.
+            </p>
+
+            <div class="d-flex justify-content-center gap-3 flex-wrap">
+
+                <a asp-controller="Product" asp-action="Index"
+                   class="btn btn-cta-light shadow-sm">
+                    Browse All Items
+                </a>
+
+                <a asp-controller="Product" asp-action="Create"
+                   class="btn btn-outline-light px-4 py-3 border-2 fw-bold"
+                   style="border-radius: 15px;">
+                    List Your Item
+                </a>
+
+            </div>
+
+        </div>
+
     </div>
 </div>

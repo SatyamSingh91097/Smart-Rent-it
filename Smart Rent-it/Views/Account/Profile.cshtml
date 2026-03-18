@@ -1,0 +1,186 @@
+﻿@model Smart_Rent_it.Models.User
+@{
+    ViewData["Title"] = "My Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    :root {
+        --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        --glass-bg: rgba(255, 255, 255, 0.95);
+    }
+
+    .profile-wrapper {
+        min-height: 80vh;
+        padding: 60px 0;
+        background-color: #f4f7f6;
+    }
+
+    .profile-card {
+        background: var(--glass-bg);
+        border: none;
+        border-radius: 24px;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+        overflow: hidden;
+        transition: all 0.3s ease;
+    }
+
+    .card-header-gradient {
+        background: var(--primary-gradient);
+        height: 140px;
+        width: 100%;
+        position: relative;
+    }
+
+    .profile-img-container {
+        margin-top: -85px;
+        position: relative;
+        display: inline-block;
+    }
+
+    .profile-img-main {
+        width: 160px;
+        height: 160px;
+        object-fit: cover;
+        border: 6px solid #fff;
+        border-radius: 50%;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        background: white;
+    }
+
+    /* Floating Camera Icon Button */
+    .upload-label-icon {
+        position: absolute;
+        bottom: 8px;
+        right: 8px;
+        background: #fff;
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        cursor: pointer;
+        transition: 0.3s;
+        border: 1px solid #eee;
+    }
+
+        .upload-label-icon:hover {
+            transform: scale(1.1);
+            background: #f8f9fa;
+            color: #667eea;
+        }
+
+    .form-control-modern {
+        border-radius: 12px;
+        border: 1.5px solid #ececf3;
+        padding: 12px 15px;
+        background: #fcfcfd;
+        transition: 0.3s;
+    }
+
+        .form-control-modern:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+            background: #fff;
+        }
+
+    .btn-save-modern {
+        background: var(--primary-gradient);
+        border: none;
+        color: white;
+        padding: 14px;
+        border-radius: 14px;
+        font-weight: 600;
+        font-size: 1rem;
+        box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        transition: 0.3s;
+    }
+
+        .btn-save-modern:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(102, 126, 234, 0.4);
+            filter: brightness(1.1);
+        }
+</style>
+
+<div class="profile-wrapper">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-5 col-md-8">
+                <div class="profile-card text-center pb-5">
+                    <div class="card-header-gradient"></div>
+
+                    <div class="profile-img-container mb-4">
+                        @{
+                            var imgUrl = Context.Session.GetString("UserProfilePic");
+                            var finalImg = !string.IsNullOrEmpty(imgUrl) ? imgUrl : "/images/default-user.png";
+                        }
+                        <img src="@finalImg" id="profilePreview" class="profile-img-main" alt="User" />
+                        
+                        <label for="ProfileFile" class="upload-label-icon" title="Change Photo">
+                            <span style="font-size: 1.2rem;">📷</span>
+                        </label>
+                    </div>
+
+                    <div class="px-4 mt-2">
+                        <h3 class="fw-bold mb-1" style="color: #2d3436;">@Model.FullName</h3>
+                        <p class="text-muted small mb-4">@Model.Email</p>
+                        
+                        <div class="d-flex justify-content-center gap-3 mb-4">
+                            <span class="badge bg-light text-dark border px-3 py-2 rounded-pill">Member Since 2026</span>
+                            <span class="badge bg-primary-subtle text-primary border border-primary-subtle px-3 py-2 rounded-pill">Verified User</span>
+                        </div>
+
+                        <hr class="my-4 opacity-25">
+
+                        @if (TempData["Message"] != null)
+                        {
+                            <div class="alert alert-success border-0 shadow-sm rounded-4 py-3 mb-4 text-start">
+                                <small>✨ @TempData["Message"]</small>
+                            </div>
+                        }
+
+                        <form asp-action="Profile" method="post" enctype="multipart/form-data">
+                            <div class="text-start mb-4">
+                                <label class="form-label fw-bold text-dark small ms-1 mb-2">Upload New Profile Picture</label>
+                                <input type="file" name="ProfileFile" id="ProfileFile"
+                                       class="form-control form-control-modern"
+                                       accept="image/*" onchange="previewImage(this);" required />
+                                <p class="form-text mt-2 extra-small text-muted" style="font-size: 0.75rem;">
+                                    Use a square image (JPG or PNG) for the best fit.
+                                </p>
+                            </div>
+
+                            <button type="submit" class="btn btn-save-modern w-100 mb-3">
+                                Update My Profile
+                            </button>
+                        </form>
+
+                        <a asp-controller="Product" asp-action="Index" class="btn btn-link text-decoration-none text-secondary mt-2">
+                            <small>← Return to Home</small>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function previewImage(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    // Smooth fade transition
+                    $('#profilePreview').fadeOut(150, function() {
+                        $(this).attr('src', e.target.result).fadeIn(150);
+                    });
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
+}

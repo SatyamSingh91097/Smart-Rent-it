@@ -3,45 +3,162 @@
     ViewData["Title"] = "List Your Item";
 }
 
-<div class="row justify-content-center mt-4">
-    <div class="col-md-6 shadow p-4 rounded bg-body-tertiary border">
-        <h2 class="mb-4 text-body border-bottom pb-2">List Your Item for Rent</h2>
-        
-        <form asp-action="Create" method="post" enctype="multipart/form-data">
-            <div class="mb-3">
-                <label asp-for="Name" class="form-label text-body">Item Name</label>
-                <input asp-for="Name" class="form-control bg-body text-body" required />
-            </div>
-            
-            <div class="mb-3">
-                <label asp-for="Description" class="form-label text-body">Description</label>
-                <textarea asp-for="Description" class="form-control bg-body text-body" rows="3" required></textarea>
-            </div>
+<style>
+    .create-container {
+        min-height: 85vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 40px 0;
+    }
 
-            @* Naya Image Upload Field *@
-            <div class="mb-3">
-                <label class="form-label text-body">Upload Item Image</label>
-                <input type="file" name="ImageFile" class="form-control bg-body text-body" accept="image/*" required />
+    .create-card {
+        background: #ffffff;
+        border: 1px solid rgba(0,0,0,0.05);
+        border-radius: 28px;
+        box-shadow: 0 25px 60px rgba(0,0,0,0.08);
+        padding: 45px;
+        transition: all 0.3s ease;
+    }
+
+    [data-bs-theme="dark"] .create-card {
+        background: #1e293b;
+        border-color: #334155;
+    }
+
+    .create-header h2 {
+        font-weight: 800;
+        letter-spacing: -1px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 10px;
+    }
+
+    .form-label {
+        font-weight: 700;
+        font-size: 0.75rem;
+        margin-left: 4px;
+        color: #64748b;
+        text-transform: uppercase;
+        letter-spacing: 0.8px;
+    }
+
+    .form-control {
+        padding: 14px 18px;
+        border-radius: 16px;
+        border: 1.5px solid #edf2f7;
+        font-size: 0.95rem;
+        transition: all 0.2s ease;
+    }
+
+    [data-bs-theme="dark"] .form-control {
+        background: #0f172a;
+        border-color: #334155;
+        color: #f1f5f9;
+    }
+
+    .form-control:focus {
+        border-color: #764ba2;
+        box-shadow: 0 0 0 4px rgba(118, 75, 162, 0.1);
+        outline: none;
+    }
+
+    /* Custom File Upload Styling */
+    .file-input-wrapper {
+        position: relative;
+    }
+
+    .btn-publish {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border: none;
+        padding: 14px 40px;
+        border-radius: 16px;
+        font-weight: 700;
+        color: white;
+        box-shadow: 0 10px 25px rgba(118, 75, 162, 0.3);
+        transition: all 0.3s ease;
+    }
+
+    .btn-publish:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 15px 35px rgba(118, 75, 162, 0.4);
+    }
+
+    .btn-cancel {
+        border: 1.5px solid #e2e8f0;
+        padding: 14px 30px;
+        border-radius: 16px;
+        font-weight: 600;
+        color: #64748b;
+        transition: all 0.2s;
+    }
+
+    .btn-cancel:hover {
+        background: #f8fafc;
+        border-color: #cbd5e1;
+    }
+
+    .fade-in-up {
+        animation: fadeInUp 0.7s ease-out;
+    }
+
+    @@keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(30px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+</style>
+
+<div class="create-container">
+    <div class="col-11 col-sm-10 col-md-8 col-lg-7 col-xl-6">
+        <div class="create-card fade-in-up">
+            <div class="create-header text-center mb-5">
+                <div class="mb-2 fs-1">🚀</div>
+                <h2>List Your Item</h2>
+                <p class="text-muted small">Fill in the details to reach thousands of renters</p>
             </div>
             
-            <div class="row">
-                <div class="col-md-6 mb-3">
-                    <label asp-for="PricePerDay" class="form-label text-body">Price (₹/day)</label>
-                    <input asp-for="PricePerDay" type="number" class="form-control bg-body text-body" required />
-                </div>
-                
-                <div class="col-md-6 mb-3 d-flex align-items-end">
-                    <div class="form-check mb-2">
-                        <input asp-for="IsAvailable" class="form-check-input" checked />
-                        <label class="form-check-label text-body">Available Now?</label>
+            <form asp-action="Create" method="post" enctype="multipart/form-data">
+                <div class="row">
+                    <div class="col-12 mb-4">
+                        <label asp-for="Name" class="form-label">Item Name</label>
+                        <input asp-for="Name" class="form-control" placeholder="e.g. Sony DSLR Camera" required autofocus />
+                    </div>
+                    
+                    <div class="col-12 mb-4">
+                        <label asp-for="Description" class="form-label">Description</label>
+                        <textarea asp-for="Description" class="form-control" rows="3" placeholder="Describe the condition and what's included..." required></textarea>
+                    </div>
+
+                    <div class="col-12 mb-4">
+                        <label class="form-label">Upload Item Image</label>
+                        <div class="file-input-wrapper">
+                            <input type="file" name="ImageFile" class="form-control" accept="image/*" required />
+                        </div>
+                        <small class="text-muted mt-2 d-block">High-quality photos attract more renters.</small>
+                    </div>
+                    
+                    <div class="col-md-6 mb-4">
+                        <label asp-for="PricePerDay" class="form-label">Price (₹/day)</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light border-end-0" style="border-radius: 16px 0 0 16px;">₹</span>
+                            <input asp-for="PricePerDay" type="number" class="form-control border-start-0" placeholder="0.00" required />
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6 mb-4 d-flex align-items-center justify-content-center">
+                        <div class="form-check form-switch custom-switch">
+                            <input asp-for="IsAvailable" class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked style="width: 3em; height: 1.5em; cursor: pointer;">
+                            <label class="form-check-label ms-3 fw-bold text-muted" for="flexSwitchCheckChecked">Available Now?</label>
+                        </div>
                     </div>
                 </div>
-            </div>
-            
-            <div class="d-flex justify-content-between mt-4">
-                <a asp-action="Index" class="btn btn-outline-secondary px-4">Cancel</a>
-                <button type="submit" class="btn btn-success px-5 shadow-sm">Publish Item</button>
-            </div>
-        </form>
+                
+                <div class="d-flex justify-content-between align-items-center mt-5 pt-3 border-top">
+                    <a asp-action="Index" class="btn btn-cancel">Cancel</a>
+                    <button type="submit" class="btn btn-publish">Publish Item</button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>

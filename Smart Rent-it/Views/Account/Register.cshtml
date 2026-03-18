@@ -3,40 +3,161 @@
     ViewData["Title"] = "Register";
 }
 
-<div class="row justify-content-center mt-5">
-    <div class="col-md-4 shadow p-4 rounded bg-body-tertiary border">
-        <h3 class="text-center mb-4 text-body">Create Account</h3>
+<style>
+    .auth-container {
+        min-height: 85vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 30px 0;
+    }
 
-        @if (ViewBag.Error != null)
-        {
-            <div class="alert alert-danger">@ViewBag.Error</div>
-        }
+    .auth-card {
+        background: #ffffff;
+        border: 1px solid rgba(0,0,0,0.05);
+        border-radius: 28px;
+        box-shadow: 0 25px 60px rgba(0,0,0,0.08);
+        padding: 45px; /* Extra space inside the card */
+        transition: all 0.3s ease;
+    }
 
-        <form asp-action="Register" method="post">
-            <div class="mb-3">
-                <label class="form-label text-body">Full Name</label>
-                <input asp-for="FullName" class="form-control bg-body text-body" placeholder="Enter your name" required />
-            </div>
-            <div class="mb-3">
-                <label class="form-label text-body">Email Address</label>
-                <input asp-for="Email" class="form-control bg-body text-body" placeholder="email@example.com" required />
-            </div>
-            <div class="mb-3">
-                <label class="form-label text-body">Password</label>
-                <input asp-for="Password" type="password" class="form-control bg-body text-body" required />
-            </div>
-            <div class="mb-3">
-                <label class="form-label text-body">Confirm Password</label>
-                <input asp-for="ConfirmPassword" type="password" class="form-control bg-body text-body" required />
-            </div>
-            <button type="submit" class="btn btn-success w-100 shadow-sm">Register Now</button>
-        </form>
+    [data-bs-theme="dark"] .auth-card {
+        background: #1e293b;
+        border-color: #334155;
+    }
 
-        <div class="mt-3 text-center">
-            <p class="text-body-secondary">
-                Already have an account?
-                <a asp-action="Login" asp-controller="Account" class="text-primary text-decoration-none fw-bold">Login</a>
-            </p>
+    .auth-header h3 {
+        font-weight: 800;
+        letter-spacing: -1px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 5px;
+    }
+
+    .form-label {
+        font-weight: 700;
+        font-size: 0.75rem;
+        margin-left: 4px;
+        color: #64748b;
+        text-transform: uppercase;
+        letter-spacing: 0.8px;
+    }
+
+    [data-bs-theme="dark"] .form-label {
+        color: #94a3b8;
+    }
+
+    .form-control {
+        padding: 14px 18px; /* Increased padding for better text visibility */
+        border-radius: 16px;
+        border: 1.5px solid #edf2f7;
+        font-size: 0.95rem;
+        transition: all 0.2s ease;
+    }
+
+    [data-bs-theme="dark"] .form-control {
+        background: #0f172a;
+        border-color: #334155;
+        color: #f1f5f9;
+    }
+
+    .form-control:focus {
+        border-color: #764ba2;
+        box-shadow: 0 0 0 4px rgba(118, 75, 162, 0.1);
+        outline: none;
+    }
+
+    .btn-register {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border: none;
+        padding: 16px;
+        border-radius: 16px;
+        font-weight: 700;
+        font-size: 1.05rem;
+        color: white;
+        box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        margin-top: 15px;
+    }
+
+    .btn-register:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 30px rgba(102, 126, 234, 0.4);
+        filter: brightness(1.1);
+    }
+
+    .login-link {
+        color: #764ba2;
+        font-weight: 700;
+        text-decoration: none;
+        transition: 0.2s;
+    }
+
+    .login-link:hover {
+        color: #667eea;
+        text-decoration: underline;
+    }
+
+    .fade-in-up {
+        animation: fadeInUp 0.7s ease-out;
+    }
+
+    @@keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(30px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+</style>
+
+<div class="auth-container">
+    <div class="col-11 col-sm-10 col-md-8 col-lg-6 col-xl-5">
+        <div class="auth-card fade-in-up">
+            <div class="auth-header text-center mb-4">
+                <div class="mb-2 fs-1">✨</div>
+                <h3>Join Smart Rent-it</h3>
+                <p class="text-muted small">Start listing and renting items today</p>
+            </div>
+
+            @if (ViewBag.Error != null)
+            {
+                <div class="alert alert-danger d-flex align-items-center border-0 rounded-4 mb-4" style="background: rgba(220, 53, 69, 0.08); color: #dc3545;">
+                    <span class="me-2">⚠️</span>
+                    <span class="small fw-bold">@ViewBag.Error</span>
+                </div>
+            }
+
+            <form asp-action="Register" method="post">
+                <div class="row">
+                    <div class="col-12 mb-3">
+                        <label class="form-label">Full Name</label>
+                        <input asp-for="FullName" class="form-control" placeholder="e.g. Satyam Sahu" required autofocus />
+                    </div>
+                    
+                    <div class="col-12 mb-3">
+                        <label class="form-label">Email Address</label>
+                        <input asp-for="Email" class="form-control" placeholder="name@domain.com" required />
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Password</label>
+                        <input asp-for="Password" type="password" class="form-control" placeholder="Min. 8 characters" required />
+                    </div>
+
+                    <div class="col-md-6 mb-4">
+                        <label class="form-label">Confirm</label>
+                        <input asp-for="ConfirmPassword" type="password" class="form-control" placeholder="Repeat password" required />
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-register w-100">Create My Account</button>
+            </form>
+
+            <div class="mt-4 text-center">
+                <p class="text-muted small">
+                    Already a member? 
+                    <a asp-action="Login" asp-controller="Account" class="login-link">Sign In</a>
+                </p>
+            </div>
         </div>
     </div>
 </div>

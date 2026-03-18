@@ -3,32 +3,146 @@
     ViewData["Title"] = "Login";
 }
 
-<div class="row justify-content-center mt-5">
-    <div class="col-md-4 shadow p-4 rounded bg-body-tertiary border">
-        <h3 class="text-center mb-4 text-body">Login to Smart Rent-it</h3>
-        
-        @if (ViewBag.Error != null)
-        {
-            <div class="alert alert-danger">@ViewBag.Error</div>
-        }
+<style>
+    .login-container {
+        min-height: 70vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 
-        <form asp-action="Login" method="post">
-            <div class="mb-3">
-                <label class="form-label text-body">Email Address</label>
-                <input asp-for="Email" class="form-control bg-body text-body" placeholder="admin@rentit.com" required />
-            </div>
-            <div class="mb-3">
-                <label class="form-label text-body">Password</label>
-                <input asp-for="Password" type="password" class="form-control bg-body text-body" placeholder="********" required />
-            </div>
-            <button type="submit" class="btn btn-primary w-100 shadow-sm">Login Now</button>
-        </form>
+    .login-card {
+        background: #ffffff;
+        border: 1px solid rgba(0,0,0,0.05);
+        border-radius: 24px;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.06);
+        padding: 40px;
+        transition: transform 0.3s ease;
+    }
 
-        <div class="mt-3 text-center">
-            <p class="text-body-secondary">
-                Don't have an account?
-                <a asp-action="Register" asp-controller="Account" class="text-primary text-decoration-none fw-bold">Sign Up</a>
-            </p>
+    [data-bs-theme="dark"] .login-card {
+        background: #1e293b;
+        border-color: #334155;
+    }
+
+    .login-header h3 {
+        font-weight: 800;
+        letter-spacing: -0.5px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .form-label {
+        font-weight: 600;
+        font-size: 0.9rem;
+        margin-left: 4px;
+        color: #4a5568;
+    }
+
+    [data-bs-theme="dark"] .form-label {
+        color: #94a3b8;
+    }
+
+    .form-control {
+        padding: 12px 16px;
+        border-radius: 14px;
+        border: 1.5px solid #edf2f7;
+        font-size: 0.95rem;
+        transition: all 0.2s ease;
+    }
+
+    [data-bs-theme="dark"] .form-control {
+        background: #0f172a;
+        border-color: #334155;
+        color: #f1f5f9;
+    }
+
+    .form-control:focus {
+        border-color: #667eea;
+        box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+    }
+
+    .btn-login {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border: none;
+        padding: 14px;
+        border-radius: 14px;
+        font-weight: 700;
+        font-size: 1rem;
+        color: white;
+        box-shadow: 0 8px 20px rgba(118, 75, 162, 0.25);
+        transition: all 0.3s ease;
+        margin-top: 10px;
+    }
+
+    .btn-login:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 25px rgba(118, 75, 162, 0.35);
+        filter: brightness(1.1);
+    }
+
+    .signup-link {
+        color: #764ba2;
+        font-weight: 700;
+        text-decoration: none;
+        transition: 0.2s;
+    }
+
+    .signup-link:hover {
+        color: #667eea;
+        text-decoration: underline;
+    }
+
+    /* Animation for smooth entrance */
+    .fade-up {
+        animation: fadeUp 0.6s ease-out;
+    }
+
+    @@keyframes fadeUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+</style>
+
+<div class="login-container">
+    <div class="col-11 col-sm-8 col-md-6 col-lg-4">
+        <div class="login-card fade-up">
+            <div class="login-header text-center mb-4">
+                <div class="mb-3 fs-1">🚀</div>
+                <h3>Welcome Back</h3>
+                <p class="text-muted small">Login to manage your rentals on Smart Rent-it</p>
+            </div>
+            
+            @if (ViewBag.Error != null)
+            {
+                <div class="alert alert-danger d-flex align-items-center border-0 rounded-4" style="background: rgba(220, 53, 69, 0.1); color: #dc3545;">
+                    <span class="me-2">⚠️</span>
+                    <span class="small fw-bold">@ViewBag.Error</span>
+                </div>
+            }
+
+            <form asp-action="Login" method="post">
+                <div class="mb-3">
+                    <label class="form-label">Email Address</label>
+                    <input asp-for="Email" class="form-control" placeholder="name@example.com" required autofocus />
+                </div>
+                <div class="mb-4">
+                    <div class="d-flex justify-content-between">
+                        <label class="form-label">Password</label>
+                    </div>
+                    <input asp-for="Password" type="password" class="form-control" placeholder="••••••••" required />
+                </div>
+                
+                <button type="submit" class="btn btn-login w-100">Login Now</button>
+            </form>
+
+            <div class="mt-4 text-center">
+                <p class="text-muted small">
+                    New here? 
+                    <a asp-action="Register" asp-controller="Account" class="signup-link">Create an account</a>
+                </p>
+            </div>
         </div>
     </div>
 </div>
